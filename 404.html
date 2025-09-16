@@ -1,42 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Chango&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <title>404 - Página no encontrada | Edevis Raga</title>
+    
     <style>
-        body{
-            background-image: url("https://images.unsplash.com/photo-1616235132417-99f443954d2e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80");
-            background-size: cover;
-            font-family: 'Roboto', 'sans-serif';
+        /* Replicando las variables de color del sitio principal */
+        :root {
+            --primary-color: #a309fc;
+            --secondary-color: #630c95;
+            --accent-color: #f9b602;
+            --text-color: #ffffff;
+            --sidebar-bg: #232323;
+            --darker-bg: #1a1a1a;
         }
-        main{
-            display: flex;
-            height: 100vh;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--darker-bg);
+            color: var(--text-color);
         }
-        .header404{
-            font-family: 'Chango', cursive;
-            font-size: 48px;
-        }
-        .content404{
-            text-align: center;
-        }
+        
+        /* Clases personalizadas para usar las variables con Tailwind */
+        .bg-primary { background-color: var(--primary-color); }
+        .bg-secondary { background-color: var(--secondary-color); }
+        .text-accent { color: var(--accent-color); }
     </style>
 </head>
-<body>
-    <main>
-        <h4 class="header404">404</h4>
-        <div class="content-404">
-            Uh-oh! We couldn't find the page you are looking for.
+<body class="antialiased">
+
+    <main class="min-h-screen flex flex-col items-center justify-center text-center p-6">
+        <div class="max-w-md">
+            <h1 class="text-8xl md:text-9xl font-black text-accent drop-shadow-lg">404</h1>
+            <h2 class="mt-4 text-3xl md:text-4xl font-extrabold text-white">¡Ups! Página no encontrada</h2>
+            <p class="mt-4 text-lg text-gray-300">
+                Parece que te has perdido en el universo digital. La página que buscas no existe o fue movida a otra galaxia.
+            </p>
+            <a href="index.html" class="mt-8 inline-block bg-primary text-white font-bold rounded-full py-3 px-8 hover:bg-secondary transition-all duration-300 shadow-lg transform hover:scale-105">
+                Volver a la Base
+            </a>
         </div>
-        <p>
-            <a href="/">Check our home page</a>
-        </p>
     </main>
 
 </body>
