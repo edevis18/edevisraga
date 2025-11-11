@@ -291,34 +291,84 @@
         </section>
 
         <!-- ===== Services Section ===== -->
-        <section id="services" class="py-20 bg-darker">
-            <div class="container mx-auto px-6">
-                 <div class="text-center mb-12 fade-in-up">
-                    <h2 class="text-3xl md:text-4xl font-bold">Mis Servicios</h2>
-                    <div class="w-24 h-1 bg-accent mx-auto mt-2 rounded"></div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Service Card 1 -->
-                    <div class="bg-sidebar-bg p-8 rounded-lg shadow-xl hover:shadow-primary/30 transition-shadow duration-300 transform hover:-translate-y-2 fade-in-up">
-                        <div class="text-4xl text-accent mb-4"><i class="fas fa-code"></i></div>
-                        <h3 class="text-xl font-bold mb-2">Desarrollo Web</h3>
-                        <p class="text-gray-400">Creación de sitios web modernos, rápidos y responsivos, adaptados a tus necesidades y a las de tus clientes.</p>
-                    </div>
-                    <!-- Service Card 2 -->
-                    <div class="bg-sidebar-bg p-8 rounded-lg shadow-xl hover:shadow-primary/30 transition-shadow duration-300 transform hover:-translate-y-2 fade-in-up">
-                        <div class="text-4xl text-accent mb-4"><i class="fas fa-tower-broadcast"></i></div>
-                        <h3 class="text-xl font-bold mb-2">Radio Fm / Online</h3>
-                        <p class="text-gray-400">Publicidad rotativa en emisoras, spots publicitarios y creación de programas radiales para conectar con tu audiencia.</p>
-                    </div>
-                    <!-- Service Card 3 -->
-                    <div class="bg-sidebar-bg p-8 rounded-lg shadow-xl hover:shadow-primary/30 transition-shadow duration-300 transform hover:-translate-y-2 fade-in-up">
-                        <div class="text-4xl text-accent mb-4"><i class="fas fa-bullhorn"></i></div>
-                        <h3 class="text-xl font-bold mb-2">Marketing Digital</h3>
-                        <p class="text-gray-400">Estrategias de contenido y SEO para aumentar tu visibilidad online y conectar con tu audiencia objetivo.</p>
-                    </div>
-                </div>
+<section id="services" class="py-20 bg-darker">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12 fade-in-up">
+            <h2 class="text-3xl md:text-4xl font-bold">Mis Servicios</h2>
+            <div class="w-24 h-1 bg-accent mx-auto mt-2 rounded"></div>
+        </div>
+        
+        <!-- 
+          NOTA: He añadido 'items-stretch' al grid y 'flex flex-col' a las tarjetas.
+          Esto asegura que todas las tarjetas tengan la misma altura y los botones 
+          queden alineados en la parte inferior, lo que se ve más profesional.
+        -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+
+            <!-- Service Card 1: Landing Page -->
+            <div class="bg-sidebar-bg p-8 rounded-lg shadow-xl hover:shadow-primary/30 transition-shadow duration-300 transform hover:-translate-y-2 fade-in-up flex flex-col h-full">
+                <!-- Icono -->
+                <div class="text-4xl text-accent mb-4"><i class="fas fa-code"></i></div>
+                <!-- Título del Servicio -->
+                <h3 class="text-xl font-bold mb-4">Landing Page <small>(Desarrollo Web)</small> </h3>
+                <!-- Lista de Características (flex-grow empuja el botón hacia abajo) -->
+                <ul class="text-gray-400 text-left space-y-2 flex-grow">
+                    <li>✓ Dominio .com, .net (etc.)</li>
+                    <li>✓ Hosting 1 Año</li>
+                    <li>✓ Correos Corporativos</li>
+                    <li>✓ 4 Menus (Home, About, Services, Contact)</li>
+                    <li>✓ ChatBot Whatsapp</li>
+                    <li>✓ SlideShow (3 Fotos)</li>
+                    <li>✓ Formulario de Contacto</li>
+                </ul>
+                <!-- Botón de Acción -->
+                <a href="#contact" class="bg-accent text-black font-bold py-2 px-6 rounded-lg mt-6 inline-block text-center hover:bg-opacity-90 transition-all">
+                    Solicitar Servicio
+                </a>
             </div>
-        </section>
+
+            <!-- Service Card 2: Marketing y SEO -->
+            <div class="bg-sidebar-bg p-8 rounded-lg shadow-xl hover:shadow-primary/30 transition-shadow duration-300 transform hover:-translate-y-2 fade-in-up flex flex-col h-full">
+                <!-- Icono (Cambiado a uno más relevante para SEO/Marketing) -->
+                <div class="text-4xl text-accent mb-4"><i class="fas fa-chart-line"></i></div>
+                <!-- Título del Servicio -->
+                <h3 class="text-xl font-bold mb-4">Marketing y SEO</h3>
+                <!-- Lista de Características -->
+                <ul class="text-gray-400 text-left space-y-2 flex-grow">
+                    <li>✓ Optimización de Google My Business</li>
+                    <li>✓ Auditoria SEO</li>
+                    <li>✓ Google Ads</li>
+                    <li>✓ Posicionamiento en motores de búsqueda</li>
+                </ul>
+                <!-- Botón de Acción -->
+                <a href="#contact" class="bg-accent text-black font-bold py-2 px-6 rounded-lg mt-6 inline-block text-center hover:bg-opacity-90 transition-all">
+                    Solicitar Servicio
+                </a>
+            </div>
+
+            <!-- Service Card 3: Radio Fm / Online -->
+            <div class="bg-sidebar-bg p-8 rounded-lg shadow-xl hover:shadow-primary/30 transition-shadow duration-300 transform hover:-translate-y-2 fade-in-up flex flex-col h-full">
+                <!-- Icono -->
+                <div class="text-4xl text-accent mb-4"><i class="fas fa-tower-broadcast"></i></div>
+                <!-- Título del Servicio -->
+                <h3 class="text-xl font-bold mb-4">Radio Fm / Online</h3>
+                <!-- Lista de Características -->
+                <ul class="text-gray-400 text-left space-y-2 flex-grow">
+                    <li>✓ Campañas publicitarias</li>
+                    <li>✓ Grabación de Spot</li>
+                    <li>✓ Edición de Audio publicitario</li>
+                    <li>✓ Menciones en programas de radio</li>
+                    <li>✓ Giras de Medios</li>
+                </ul>
+                <!-- Botón de Acción -->
+                <a href="#contact" class="bg-accent text-black font-bold py-2 px-6 rounded-lg mt-6 inline-block text-center hover:bg-opacity-90 transition-all">
+                    Solicitar Servicio
+                </a>
+            </div>
+
+        </div> <!-- Fin del Grid -->
+    </div>
+</section>
 
 
 
@@ -345,7 +395,7 @@
                                 <div class="p-6 flex flex-col flex-grow">
                                     <h3 class="text-xl font-bold mb-2 text-white">MakriSystem</h3>
                                     <p class="text-gray-400 mb-4 flex-grow">Empresa de  outsourcing y Atención al Cliente. Venezuela. <small style="color:orange;">En desarrollo</small></p>
-                                    <a href="https://makrisystem.wuaze.com/" target="_blank" class="mt-auto text-center bg-primary text-white font-bold rounded-full py-2 px-6 hover:bg-secondary transition-all duration-300 transform hover:scale-105">
+                                    <a href="https://makrisystem.com/" target="_blank" class="mt-auto text-center bg-primary text-white font-bold rounded-full py-2 px-6 hover:bg-secondary transition-all duration-300 transform hover:scale-105">
                                         Visitar Sitio
                                     </a>
                                 </div>
