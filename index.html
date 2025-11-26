@@ -290,7 +290,9 @@
             </div>
         </section>
 
-        <!-- ===== Services Section ===== -->
+        
+
+       <!-- ===== Services Section ===== -->
 <section id="services" class="py-20 bg-darker">
     <div class="container mx-auto px-6">
         <div class="text-center mb-12 fade-in-up">
@@ -298,15 +300,15 @@
             <div class="w-24 h-1 bg-accent mx-auto mt-2 rounded"></div>
         </div>
         
-        <!-- 
-          NOTA: He añadido 'items-stretch' al grid y 'flex flex-col' a las tarjetas.
-          Esto asegura que todas las tarjetas tengan la misma altura y los botones 
-          queden alineados en la parte inferior, lo que se ve más profesional.
-        -->
+        <!-- grid stretch-->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
 
             <!-- Service Card 1: Landing Page -->
-            <div class="bg-sidebar-bg p-8 rounded-lg shadow-xl hover:shadow-primary/30 transition-shadow duration-300 transform hover:-translate-y-2 fade-in-up flex flex-col h-full">
+            <div class="bg-sidebar-bg p-8 rounded-lg shadow-xl hover:shadow-primary/30 transition-shadow duration-300 transform hover:-translate-y-2 fade-in-up flex flex-col h-full border-2 border-accent relative">
+                <!-- Badge Más Popular -->
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                    <span class="bg-accent text-black text-sm font-bold px-4 py-1 rounded-full">MÁS POPULAR</span>
+                </div>
                 <!-- Icono -->
                 <div class="text-4xl text-accent mb-4"><i class="fas fa-code"></i></div>
                 <!-- Título del Servicio -->
@@ -315,14 +317,15 @@
                 <ul class="text-gray-400 text-left space-y-2 flex-grow">
                     <li>✓ Dominio .com, .net (etc.)</li>
                     <li>✓ Hosting 1 Año</li>
-                    <li>✓ Correos Corporativos</li>
+                    <li>✓ 5 Mailboxes</li>
+                    <li>✓ SEO Inicial</li>
                     <li>✓ 4 Menus (Home, About, Services, Contact)</li>
                     <li>✓ ChatBot Whatsapp</li>
                     <li>✓ SlideShow (3 Fotos)</li>
                     <li>✓ Formulario de Contacto</li>
                 </ul>
                 <!-- Botón de Acción -->
-                <a href="#contact" class="bg-accent text-black font-bold py-2 px-6 rounded-lg mt-6 inline-block text-center hover:bg-opacity-90 transition-all">
+                <a href="https://wa.link/kgcshu" class="bg-accent text-black font-bold py-2 px-6 rounded-lg mt-6 inline-block text-center hover:bg-opacity-90 transition-all">
                     Solicitar Servicio
                 </a>
             </div>
@@ -369,7 +372,6 @@
         </div> <!-- Fin del Grid -->
     </div>
 </section>
-
 
 
 
