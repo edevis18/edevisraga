@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es-ve">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+   <link rel="shortcut icon" href="img/foto.jpg" type="image/x-icon">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+   <meta name="description" content="Card de Presentación Profesional de Edevis Raga.">
+   <!-- Meta Open Graph -->
+   <meta property="og:type" content="website">
+   <meta property="og:title" content="Portafolio de Edevis Raga">
+   <meta property="og:image" content="https://edevis18.github.io/edevisr/img/portada.jpg"> <!-- URL absoluta -->
+   <meta property="og:image:width" content="600">
+   <meta property="og:image:height" content="400">
+   <meta property="og:description" content="Servicios Profesionales Freelance - Edevis Raga">
+   <meta property="og:url" content="https://edevis.cabiguia.com/">
+   <meta http-equiv="cache-control" content="max-age=0" />
+   <meta http-equiv="cache-control" content="no-cache" />
+   <meta http-equiv="expires" content="0" />
+   <meta http-equiv="expires" content="Tue, 01 Jan 2050 1:00:00 GMT" />
+   <meta http-equiv="pragma" content="no-cache" />
+   <link rel="stylesheet" href="css/styles.css">
+   <script src="https://kit.fontawesome.com/65c161370e.js" crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <title>Edevis Raga | Portafolio | Freelance</title>
+</head>
+
+<body>
+
+ <div class="ed-card-content">
+  <img src="img/foto.jpg" alt="Edevis Raga" class="profile-picture">
+  <h1>@edevisr <i class="fa fa-check-circle" aria-hidden="true" style="color:#49adf4; font-size: 12px;"></i></h1>
+  <small style="color:var(--accent-color);">Edevis Raga</small>
+  <p>🚀 Soy tu mejor opción Freelance para tu proyecto. 📲</p>
+  <p><b>¡Contrata Mis Servicios!</b></p>
+
+  <div class="buttons">
+    <a href="https://www.behance.net/edevis18a165?log_shim_removal=1" target="_blank" ><i class="fas fa-image"></i> Portafolio Gráfico</a>
+    <a href="portafolio-web.html"><i class="fas fa-globe"></i> Portafolio Web</a>
+    <a href="https://soundcloud.com/edevis"target="_blank" ><i class="fas fa-headphones"></i> Audio Profesional</a>
+    <a href="nuestros-clientes.html"><i class="fa fa-users" aria-hidden="true"></i> Mis Clientes</a>
+    <a href="https://cabiguia.com/planes"target="_blank" ><i class="fa-solid fa-rectangle-ad"></i> Anuncia en Cabiguia</a>
+    <a href="./"><i class="fa-solid fa-arrow-left"></i> Volver a Inicio</a>
+  </div>
+
+  <!-- SECTION REDES-->
+  <div class="ed-redes-sociales">       
+    <a href="https://www.instagram.com/edevisr/"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://wa.link/fy3m8r"><i class="fa-brands fa-whatsapp"></i></a>
+    <a href="https://t.me/edevisr"><i class="fa-brands fa-telegram"></i></a>
+    <a href="" id="shareBtn"><i class="fa-solid fa-share-from-square"></i></a>
+  </div>
+</div>
+
+<script>
+  document.getElementById('shareBtn').addEventListener('click', function() {
+    if (navigator.share) {
+      navigator.share({
+        title: document.title,
+        text: '¡Echa un vistazo a mis Servicios Profesionales!',
+        url: window.location.href
+      })
+      .then(() => console.log('Enlace compartido con éxito.'))
+      .catch((error) => console.error('Error al compartir:', error));
+    } else {
+        // Fallback para navegadores que no admiten la API de Web Share
+        alert('La función de compartir no está disponible en este navegador.');
+      }
+    });
+  </script>
+
+<script src="js/noclick.js"></script>  
+
+</body>
+</html>

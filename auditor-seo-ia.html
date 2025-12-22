@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edevis Raga | Auditor SEO con IA ¡Gratis!</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carga de Fuente (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Definición de variables de color y estilos base (TU CSS) */
+        :root {
+            --primary-color: #a309fc;
+            --secondary-color: #630c95;
+            --accent-color: #f9b602;
+            --text-color: #ffffff;
+            --sidebar-bg: #232323;
+            --darker-bg: #1a1a1a;
+            --error: #f54051;
+            --success: #1ba348;
+            --badge: #f94e02;
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--sidebar-bg);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+        }
+
+        /* Clases de utilidad para usar las variables con Tailwind */
+        .bg-primary { background-color: var(--primary-color); }
+        .bg-secondary { background-color: var(--secondary-color); }
+        .bg-accent { background-color: var(--accent-color); }
+        .bg-darker { background-color: var(--darker-bg); }
+        .bg-sidebar { background-color: var(--sidebar-bg); }
+        
+        .text-primary { color: var(--primary-color); }
+        .text-accent { color: var(--accent-color); }
+        .text-error { color: var(--error); }
+        .text-success { color: var(--success); }
+        
+        .border-primary { border-color: var(--primary-color); }
+        .border-secondary { border-color: var(--secondary-color); }
+        .border-accent { border-color: var(--accent-color); }
+
+        /* Estilo para el scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--sidebar-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+
+        /* Estilo para el círculo de puntuación */
+        .score-circle {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            /* El color --color-value se establecerá con JS */
+            background: conic-gradient(
+                var(--color-value, #ef4444) var(--percent-value, 0deg), 
+                #4b5563 0deg /* gray-600 para fondo inactivo oscuro */
+            );
+            transition: --percent-value 1s ease-out, background-color 1s ease;
+            box-shadow: 0 0 15px rgba(163, 9, 252, 0.2); /* Glow morado suave */
+        }
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 104px;
+            height: 104px;
+            background: var(--darker-bg);
+            border-radius: 50%;
+        }
+        .score-text {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Estilo para el Loader (Spinner) */
+        .loader {
+            border: 4px solid #374151; /* gray-700 */
+            border-top: 4px solid var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Estilos de Inputs (Basado en tu CSS) */
+        #seo-form input {
+            background-color: #e2e8f0; /* Fondo gris claro */
+            color: #1a202c; /* Texto gris oscuro */
+            border: 2px solid transparent;
+        }
+        #seo-form input::placeholder {
+            color: #718096;
+        }
+        #seo-form input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        /* Estilos para el Tooltip de Ayuda */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            width: 280px;
+            background-color: var(--darker-bg);
+            color: var(--text-color);
+            text-align: left;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 50;
+            bottom: 125%; 
+            left: 50%;
+            margin-left: -140px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 1px solid var(--primary-color);
+            font-size: 13px;
+            line-height: 1.6;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--primary-color) transparent transparent transparent;
+        }
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .tooltip-code {
+            background-color: #000000;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            display: block;
+            margin-top: 8px;
+            color: #10b981; /* Verde código */
+        }
+        
+        /* Hover effects para links del header */
+        header nav a {
+            position: relative;
+            padding-bottom: 5px;
+        }
+        header nav a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 0;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform var(--transition-speed) ease;
+        }
+        header nav a:hover::after {
+            transform: scaleX(1);
+        }
+    </style>
+</head>
+<body class="h-full antialiased">
+
+    <!-- Menú Móvil (Oculto por defecto) -->
+    <nav id="mobile-menu" class="fixed inset-0 z-50 flex justify-end bg-black bg-opacity-80 transform translate-x-full transition-transform duration-300 ease-in-out">
+        <div class="bg-darker w-64 h-full p-6 space-y-6 border-l border-primary">
+            <div class="flex justify-between items-center">
+                <span class="text-accent text-lg font-semibold">Menú</span>
+                <button id="menu-close-button" class="text-white hover:text-accent">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <a href="./" class="block text-white hover:text-accent text-lg font-medium">Inicio</a>
+            <a href="./#services" class="block text-white hover:text-accent text-lg font-medium">Servicios</a>
+            <a href="./#contact" class="block text-white hover:text-accent text-lg font-medium">Contacto</a>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <div class="min-h-full">
+        <!-- Encabezado con Logo y Menú -->
+        <header class="bg-darker shadow-lg border-b border-secondary">
+            <div class="max-w-4xl mx-auto px-4 py-3">
+                <div class="flex justify-between items-center">
+                    <!-- Logo -->
+                    <div class="flex items-center">
+                        <img src="img/logo2.png" alt="Makri Logo" class="h-14 w-auto object-contain">
+                    </div>
+
+                    <!-- Menú de Escritorio -->
+                    <nav class="hidden md:flex items-center gap-6">
+                        <a href="./" class="text-white hover:text-accent font-medium transition-colors">Inicio</a>
+                        <a href="./#services" class="text-white hover:text-accent font-medium transition-colors">Servicios</a>
+                        <a href="./#contact" class="text-white hover:text-accent font-medium transition-colors">Contacto</a>
+                    </nav>
+                    
+                    <!-- Botón de Menú Móvil -->
+                    <div class="md:hidden">
+                        <button id="menu-open-button" class="text-white hover:text-accent">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Contenido de la App -->
+        <main class="p-4 md:p-8">
+            <div class="max-w-4xl mx-auto">
+                
+                <!-- Encabezado de la App -->
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">Analizador SEO con IA</h2>
+                    <p class="text-lg text-gray-400 mt-2">Ingresa un dominio para analizar su SEO básico.</p>
+                </div>
+
+                <!-- Formulario de Entrada -->
+                <form id="seo-form" class="flex flex-col md:flex-row gap-4 mb-8">
+                    <input 
+                        type="text" 
+                        id="domain-input"
+                        placeholder="Ej: google.com"
+                        class="flex-grow rounded-lg px-4 py-3"
+                    />
+                    <button 
+                        type="submit" 
+                        id="analyze-button"
+                        class="bg-primary hover:bg-secondary text-white font-semibold py-3 px-6 rounded-lg transition duration-200 flex items-center justify-center border border-transparent hover:border-accent"
+                    >
+                        Analizar
+                    </button>
+                </form>
+
+                <!-- Popup de Error -->
+                <div id="error-popup" class="hidden fixed top-20 right-5 z-50 max-w-sm w-full bg-red-600 text-white p-4 rounded-lg shadow-lg border border-red-700">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <strong class="font-semibold">Error en el Análisis</strong>
+                            <p id="error-text" class="text-sm mt-1">Ocurrió un error.</p>
+                        </div>
+                        <button id="close-error" class="ml-4 text-red-100 hover:text-white">&times;</button>
+                    </div>
+                </div>
+
+                <!-- Contenedor de Resultados (Oculto por defecto) -->
+                <div id="results-container" class="hidden space-y-8">
+                    
+                    <!-- Sección de Puntuación y Resumen -->
+                    <div class="bg-darker border border-secondary rounded-xl p-6 shadow-md">
+                        <div class="flex flex-col md:flex-row items-center gap-6">
+                            <!-- Círculo de Puntuación -->
+                            <div id="score-circle" class="score-circle flex-shrink-0">
+                                <div class="score-text text-center">
+                                    <span id="score-number" class="block text-4xl font-bold text-white">0</span>
+                                    <span class="block text-sm text-gray-400">/ 100</span>
+                                </div>
+                            </div>
+                            <!-- Resumen General -->
+                            <div class="flex-grow text-center md:text-left">
+                                <h2 class="text-2xl font-semibold text-accent">Resumen de la Auditoría</h2>
+                                <p id="general-summary" class="text-gray-300 mt-2">La IA está analizando el dominio...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pestañas de Detalles -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <!-- Columna Izquierda: Detalles Técnicos -->
+                        <div class="bg-darker border border-secondary rounded-xl p-6 shadow-lg space-y-6">
+                            <h2 class="text-xl font-semibold text-white border-b border-gray-700 pb-3">Detalles de la Auditoría</h2>
+
+                            <!-- Seguridad y Redirección -->
+                            <div class="space-y-3">
+                                <h3 class="text-lg font-semibold text-primary">Seguridad y Redirección</h3>
+                                <div class="flex items-center justify-between text-sm">
+                                    <strong class="text-gray-300 flex items-center gap-2">
+                                        HTTPS
+                                        <div class="tooltip-container">
+                                            <span class="text-accent text-xs">(?)</span>
+                                            <span class="tooltip-text">
+                                                Comprueba si el sitio usa cifrado SSL (HTTPS). Es fundamental para la seguridad y la confianza del usuario.
+                                            </span>
+                                        </div>
+                                    </strong>
+                                    <span id="httpsa-status" class="font-medium text-gray-400">N/A</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <strong class="text-gray-300 flex items-center gap-2">
+                                        WWW
+                                        <div class="tooltip-container">
+                                            <span class="text-accent text-xs">(?)</span>
+                                            <span class="tooltip-text">
+                                                Revisa si el dominio redirige (301) de 'www' a 'no-www' (o viceversa). Esto evita contenido duplicado.
+                                                <br><br>
+                                                <strong>Solución (Apache .htaccess):</strong>
+                                                <code class="tooltip-code">RewriteEngine On
+    RewriteCond %{HTTP_HOST} ^www\.dominio\.com [NC]
+    RewriteRule ^(.*)$ https://dominio.com/$1 [L,R=301]</code>
+                                            </span>
+                                        </div>
+                                    </strong>
+                                    <span id="www-status" class="font-medium text-gray-400">N/A</span>
+                                </div>
+                            </div>
+                            <hr class="border-gray-700">
+
+                            <!-- Contenido -->
+                            <div class="space-y-3">
+                                <h3 class="text-lg font-semibold text-primary">Contenido</h3>
+                                <div class="flex items-center justify-between text-sm">
+                                    <strong class="text-gray-300">Idioma (Lang)</strong>
+                                    <span id="lang-status" class="font-medium text-gray-400">N/A</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <strong class="text-gray-300 flex items-center gap-2">
+                                        Etiqueta H1
+                                        <div class="tooltip-container">
+                                            <span class="text-accent text-xs">(?)</span>
+                                            <span class="tooltip-text">
+                                                El H1 es el título principal de la página. Debe existir uno solo por página y describir claramente el contenido.
+                                            </span>
+                                        </div>
+                                    </strong>
+                                    <span id="h1-analysis" class="font-medium text-gray-400">N/A</span>
+                                </div>
+                                <div class="flex flex-col text-sm">
+                                    <strong class="text-gray-300 mb-1">Meta Descripción</strong>
+                                    <span id="meta-desc-analysis" class="font-medium text-gray-400">N/A</span>
+                                </div>
+                            </div>
+                            <hr class="border-gray-700">
+
+                             <!-- Rendimiento (Estimado) -->
+                            <div class="space-y-3">
+                                <h3 class="text-lg font-semibold text-primary">Rendimiento (Estimado)</h3>
+                                <div class="flex items-center justify-between text-sm">
+                                    <strong class="text-gray-300">Velocidad de Carga</strong>
+                                    <span id="load-speed-analysis" class="font-medium text-gray-400">N/A</span>
+                                </div>
+                                <div class="flex items-center justify-between text-sm">
+                                    <strong class="text-gray-300">Ubicación del Servidor</strong>
+                                    <span id="server-location-analysis" class="font-medium text-gray-400">N/A</span>
+                                </div>
+                            </div>
+                            <hr class="border-gray-700">
+
+                            <!-- Análisis de Backlinks -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-primary">Análisis de Backlinks (Autoridad Estimada)</h3>
+                                <div class="space-y-3 mt-3">
+                                    <div class="flex items-center justify-between">
+                                        <strong class="text-gray-300">Puntuación de Autoridad (Estimada):</strong>
+                                        <span id="authority-score-badge" class="px-3 py-1 text-sm font-bold text-white rounded-full">N/A</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <strong class="text-gray-300">Cantidad de Backlinks (Estimada):</strong>
+                                        <span id="backlink-estimate-badge" class="px-3 py-1 text-sm font-semibold text-white bg-secondary rounded-full">N/A</span>
+                                    </div>
+                                    <p id="backlink-analysis-summary" class="text-sm text-gray-400 pt-2"></p>
+                                </div>
+                            </div>
+                            <hr class="border-gray-700">
+
+                            <!-- Robots.txt -->
+                            <div>
+                                <h3 class="text-lg font-semibold text-primary">Análisis de Robots.txt</h3>
+                                <p id="robots-analysis-summary" class="text-sm text-gray-400 mb-3"></p>
+                                <pre id="robots-content" class="bg-black border border-gray-700 text-green-400 text-xs rounded-md p-4 max-h-48 overflow-auto font-mono">N/A</pre>
+                            </div>
+                        </div>
+
+                        <!-- Columna Derecha: Preview y Recomendaciones -->
+                        <div class="space-y-6">
+                            <!-- Google Preview -->
+                            <div class="bg-darker border border-secondary rounded-xl p-6 shadow-md">
+                                <h2 class="text-xl font-semibold text-white mb-4">Vista Previa en Google</h2>
+                                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                                    <span id="snippet-url" class="text-sm text-gray-600 block">https://dominio.com</span>
+                                    <h3 id="snippet-title" class="text-xl text-blue-800 hover:underline cursor-pointer truncate">Título de la Página Web</h3>
+                                    <p id="snippet-desc" class="text-sm text-gray-600">Esta es la meta descripción que Google podría mostrar...</p>
+                                </div>
+                            </div>
+
+                            <!-- Recomendaciones de la IA -->
+                            <div class="bg-darker border border-secondary rounded-xl p-6 shadow-md">
+                                <h2 class="text-xl font-semibold text-white mb-4">Recomendaciones de la IA</h2>
+                                <div id="recommendations-list" class="space-y-3">
+                                    <!-- Las recomendaciones se insertarán aquí -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de Carga Flotante -->
+    <div id="loading-modal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-90 flex flex-col items-center justify-center transition-opacity duration-300" style="backdrop-filter: blur(5px);">
+        <div class="loader w-16 h-16"></div>
+        <span id="loading-percentage" class="text-accent text-3xl font-bold mt-5">0%</span>
+        <span class="text-gray-300 text-md mt-2">Analizando el dominio...</span>
+    </div>
+
+
+    <script>
+        // --- Clave de API (¡IMPORTANTE!) ---
+        const apiKey = "AIzaSyBkGXH7yWaaQMoCEbQ27mXG724OO1LGCgE"; 
+
+        // --- Modelos de IA ---
+        const geminiModel = "gemini-2.5-flash-preview-09-2025";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent?key=${apiKey}`;
+
+        // --- Elementos del DOM ---
+        const seoForm = document.getElementById('seo-form');
+        const domainInput = document.getElementById('domain-input');
+        const analyzeButton = document.getElementById('analyze-button');
+        
+        const resultsContainer = document.getElementById('results-container');
+        const errorPopup = document.getElementById('error-popup');
+        const errorText = document.getElementById('error-text');
+        const closeErrorButton = document.getElementById('close-error');
+
+        // Modal de Carga
+        const loadingModal = document.getElementById('loading-modal');
+        const loadingPercentage = document.getElementById('loading-percentage');
+        let progressInterval = null;
+        
+        // Menú Móvil
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOpenButton = document.getElementById('menu-open-button');
+        const menuCloseButton = document.getElementById('menu-close-button');
+
+        // Resultados
+        const scoreCircle = document.getElementById('score-circle');
+        const scoreNumber = document.getElementById('score-number');
+        const generalSummary = document.getElementById('general-summary');
+        
+        const snippetUrl = document.getElementById('snippet-url');
+        const snippetTitle = document.getElementById('snippet-title');
+        const snippetDesc = document.getElementById('snippet-desc');
+        
+        const recommendationsList = document.getElementById('recommendations-list');
+
+        // Detalles de Auditoría
+        const httpsStatus = document.getElementById('httpsa-status');
+        const wwwStatus = document.getElementById('www-status');
+        const langStatus = document.getElementById('lang-status');
+        const h1Analysis = document.getElementById('h1-analysis');
+        const metaDescAnalysis = document.getElementById('meta-desc-analysis');
+        const loadSpeedAnalysis = document.getElementById('load-speed-analysis');
+        const serverLocationAnalysis = document.getElementById('server-location-analysis');
+        const authorityScoreBadge = document.getElementById('authority-score-badge');
+        const backlinkEstimateBadge = document.getElementById('backlink-estimate-badge');
+        const backlinkAnalysisSummary = document.getElementById('backlink-analysis-summary');
+        const robotsAnalysisSummary = document.getElementById('robots-analysis-summary');
+        const robotsContent = document.getElementById('robots-content');
+
+        // --- Event Listeners ---
+        seoForm.addEventListener('submit', handleAnalyze);
+        closeErrorButton.addEventListener('click', hideError);
+        menuOpenButton.addEventListener('click', () => mobileMenu.classList.remove('translate-x-full'));
+        menuCloseButton.addEventListener('click', () => mobileMenu.classList.add('translate-x-full'));
+
+
+        // --- Lógica Principal ---
+
+        async function handleAnalyze(e) {
+            e.preventDefault();
+            const domain = domainInput.value.trim().replace(/^(https?:\/\/)?(www\.)?/, '').split('/')[0];
+            if (!domain) {
+                showError("Por favor, ingresa un dominio válido.");
+                return;
+            }
+
+            setLoading(true);
+            hideError();
+            resultsContainer.classList.add('hidden');
+
+            try {
+                // 1. Definir el System Prompt
+                const systemPrompt = `
+                    Actúa como un motor de análisis SEO técnico. Eres una API.
+                    Tu única respuesta debe ser un objeto JSON válido, sin texto antes ni después.
+                    Utiliza la herramienta "google_search" para investigar el dominio proporcionado por el usuario.
+                    Analiza los siguientes puntos y devuelve la información ESTRUCTURADA en el siguiente formato JSON:
+
+                    {
+                      "domain": "dominio.com",
+                      "seoScore": <número entero 0-100>,
+                      "generalSummary": "<Resumen de 1-2 frases sobre el estado SEO general>",
+                      "googleSnippet": {
+                        "title": "<Título que Google muestra (o el <title> de la página)>",
+                        "url": "<URL formateada (ej: https://dominio.com)>",
+                        "description": "<Meta descripción encontrada o un resumen de la página>"
+                      },
+                      "technicalSeo": {
+                        "https": {
+                          "found": <true/false>,
+                          "analysis": "<Análisis corto (ej: 'Implementado correctamente' o 'No encontrado'). (Instrucción: Basa esta respuesta SOLAMENTE en si la URL principal que encuentras en google_search usa 'httpsS'.)>"
+                        },
+                        "wwwRedirect": {
+                          "analysis": "<Análisis corto (ej: 'Redirige de www al dominio principal (Correcto)' o 'No se detecta redirección (Error)'). (Instrucción: Basa esto en si la URL canónica que google_search muestra es la versión www o no-www.)>"
+                        },
+                        "langDeclared": "<Análisis corto (ej: 'Idioma 'es' declarado' o 'Idioma no declarado'). (Instrucción: Busca si la etiqueta 'lang' está presente.)>",
+                        "h1Found": "<Análisis corto (ej: 'Etiqueta H1 principal encontrada' o 'No se encontró H1 en la página principal')>",
+                        "metaDescriptionAnalysis": "<Análisis cualitativo corto (ej: 'Meta descripción optimizada' o 'Meta descripción ausente o demasiado corta')>"
+                      },
+                      "performance": {
+                        "loadSpeedAnalysis": "<Análisis corto (ej: 'Velocidad de carga rápida (CWV Aprobado)' o 'Velocidad de carga lenta (Requiere revisión)'). (Instrucción: Basa esto en datos de Core Web Vitals o PageSpeed Insights si los encuentras.)>",
+                        "serverLocation": "<País/Región (ej: 'Estados Unidos' o 'Desconocida'). (Instrucción: Basa esto en datos de 'whois' o 'server location' si los encuentras.)>"
+                      },
+                      "backlinks": {
+                        "authorityScore": <número entero 0-100 (estimado basado en la calidad de los resultados de búsqueda)> ,
+                        "estimateRange": "<'Pocos', 'Cientos', 'Miles', 'Millones' (estimado basado en la prominencia del dominio en la búsqueda)>",
+                        "summary": "<Análisis cualitativo de 1-2 frases sobre la autoridad y perfil de enlaces>"
+                      },
+                      "robots": {
+                        "found": <true/false>,
+                        "analysis": "<Análisis corto (ej: 'Archivo encontrado y accesible' o 'robots.txt no encontrado'). (Instrucción: Usa google_search para buscar EXPLÍCITAMENTE el contenido de 'dominio.com/robots.txt'. No asumas que no lo encuentras en una búsqueda general.)>",
+                        "content": "<Contenido literal del archivo robots.txt. (Instrucción: Si google_search no te da el contenido, pon 'No se pudo obtener el contenido'. Si lo encuentras, pégalo aquí.)>"
+                      },
+                      "recommendations": [
+                        { "type": "success", "text": "Buen uso de HTTPS." },
+                        { "type": "warning", "text": "Optimizar la meta descripción para mejor CTR." },
+                        { "type": "error", "text": "Configurar redirección 301 de www a no-www." }
+                      ]
+                    }
+                `;
+
+                // 2. Definir el User Prompt
+                const userQuery = `Analiza el dominio: ${domain}`;
+
+                // 3. Configurar Payload
+                const payload = {
+                    contents: [{ parts: [{ text: userQuery }] }],
+                    tools: [{ "google_search": {} }],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                    generationConfig: {
+                        temperature: 0.1, 
+                    }
+                };
+                
+                // 4. Realizar la llamada a la API
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorBody = await response.json();
+                    const errorMsg = errorBody.error ? errorBody.error.message : `HTTP error! status: ${response.status}`;
+                    console.error("Error de la API:", JSON.stringify(errorBody, null, 2));
+                    throw new Error(`Error de la API: ${response.status} ${errorMsg}`);
+                }
+
+                const result = await response.json();
+                
+                // 5. Procesar la respuesta
+                const candidate = result.candidates?.[0];
+                if (!candidate || !candidate.content?.parts?.[0]?.text) {
+                    console.error("Respuesta de la IA inesperada:", JSON.stringify(result, null, 2));
+                    throw new Error("Respuesta inválida o vacía de la IA.");
+                }
+
+                let rawText = candidate.content.parts[0].text;
+                
+                // Limpieza de la respuesta
+                rawText = rawText.trim().replace(/^```json\s*/, '').replace(/```$/, '');
+
+                let data;
+                try {
+                    data = JSON.parse(rawText);
+                } catch (parseError) {
+                    console.error("Respuesta de la IA (no es JSON):", rawText);
+                    console.error("Error al parsear el JSON de la IA:", parseError);
+                    throw new Error("Error al procesar la respuesta de la IA: No se encontró un JSON válido en la respuesta de la IA.");
+                }
+
+                // 6. Mostrar resultados
+                displayResults(data);
+
+            } catch (error) {
+                console.error("Error en el análisis:", error);
+                showError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        function displayResults(data) {
+            resultsContainer.classList.remove('hidden');
+
+            // Puntuación
+            const score = data.seoScore || 0;
+            scoreNumber.textContent = score;
+            
+            // Lógica de color degradado HSL (0=Rojo, 120=Verde)
+            const hue = (score / 100) * 120;
+            const colorValue = `hsl(${hue}, 90%, 45%)`;
+            
+            scoreCircle.style.setProperty('--percent-value', `${(score / 100) * 360}deg`);
+            scoreCircle.style.setProperty('--color-value', colorValue);
+
+            // Resumen
+            generalSummary.textContent = data.generalSummary;
+
+            // Snippet
+            snippetUrl.textContent = data.googleSnippet.url;
+            snippetTitle.textContent = data.googleSnippet.title;
+            snippetDesc.textContent = data.googleSnippet.description;
+
+            // Detalles de Auditoría
+            httpsStatus.textContent = data.technicalSeo.https.analysis;
+            httpsStatus.className = `font-medium ${data.technicalSeo.https.found ? 'text-green-400' : 'text-error'}`;
+            
+            wwwStatus.textContent = data.technicalSeo.wwwRedirect.analysis;
+            langStatus.textContent = data.technicalSeo.langDeclared;
+            h1Analysis.textContent = data.technicalSeo.h1Found;
+            metaDescAnalysis.textContent = data.technicalSeo.metaDescriptionAnalysis;
+
+            // Rendimiento
+            loadSpeedAnalysis.textContent = data.performance.loadSpeedAnalysis;
+            serverLocationAnalysis.textContent = data.performance.serverLocation;
+
+            // Badges de Backlinks
+            const authorityScore = data.backlinks.authorityScore || 0;
+            authorityScoreBadge.textContent = `${authorityScore} / 100`;
+            
+            let authorityColor = 'bg-red-600';
+            if (authorityScore >= 70) authorityColor = 'bg-green-600';
+            else if (authorityScore >= 40) authorityColor = 'bg-yellow-600';
+            authorityScoreBadge.className = `px-3 py-1 text-sm font-bold text-white rounded-full ${authorityColor}`;
+
+            backlinkEstimateBadge.textContent = data.backlinks.estimateRange;
+            backlinkAnalysisSummary.textContent = data.backlinks.summary;
+            
+            // Robots
+            robotsAnalysisSummary.textContent = data.robots.analysis;
+            robotsContent.textContent = data.robots.content;
+
+            // Recomendaciones
+            recommendationsList.innerHTML = ''; 
+            if (data.recommendations && data.recommendations.length > 0) {
+                data.recommendations.forEach(item => {
+                    let iconSvg = '';
+                    let colorClasses = '';
+
+                    switch (item.type) {
+                        case 'success':
+                            iconSvg = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                            colorClasses = 'text-green-300 bg-green-900/40 border-green-700';
+                            break;
+                        case 'warning':
+                            iconSvg = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`;
+                            colorClasses = 'text-yellow-300 bg-yellow-900/40 border-yellow-700';
+                            break;
+                        case 'error':
+                            iconSvg = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2 2m2-2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                            colorClasses = 'text-red-300 bg-red-900/40 border-red-700';
+                            break;
+                    }
+
+                    const li = document.createElement('div');
+                    li.className = `flex items-start gap-3 p-3 border rounded-lg ${colorClasses}`;
+                    li.innerHTML = `
+                        <div class="flex-shrink-0 mt-0.5">${iconSvg}</div>
+                        <p class="text-sm">${item.text}</p>
+                    `;
+                    recommendationsList.appendChild(li);
+                });
+            } else {
+                recommendationsList.innerHTML = '<p class="text-sm text-gray-500">No se generaron recomendaciones específicas.</p>';
+            }
+        }
+
+        function setLoading(isLoading) {
+            if (isLoading) {
+                loadingModal.classList.remove('hidden');
+                loadingModal.classList.add('opacity-100');
+                
+                let percent = 0;
+                loadingPercentage.textContent = '0%';
+                
+                // Simula el progreso
+                progressInterval = setInterval(() => {
+                    percent += Math.floor(Math.random() * 5);
+                    if (percent >= 99) {
+                        percent = 99;
+                        clearInterval(progressInterval);
+                    }
+                    loadingPercentage.textContent = `${percent}%`;
+                }, 300);
+
+            } else {
+                // Completa al 100%
+                clearInterval(progressInterval);
+                loadingPercentage.textContent = '100%';
+                
+                // Espera un momento para que el usuario vea el 100%
+                setTimeout(() => {
+                    loadingModal.classList.add('opacity-0');
+                    setTimeout(() => {
+                        loadingModal.classList.add('hidden');
+                        loadingModal.classList.remove('opacity-0'); // Resetea para la próxima vez
+                    }, 300);
+                }, 500);
+            }
+        }
+
+        function showError(message) {
+            errorText.textContent = message;
+            errorPopup.classList.remove('hidden');
+        }
+
+        function hideError() {
+            errorPopup.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

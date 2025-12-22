@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es-ve">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Solicitar Presupuesto</title>
+</head>
+<body>
+
+
+<div class="ede-card-form">
+<h1>Contáctame 😎</h1>
+<div class="ede-contact-form">
+        <form id="contactForm">
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+            <input type="text" id="apellido" name="apellido" placeholder="Apellido" required>
+            <input type="tel" id="telefono" name="telefono" placeholder="Teléfono" required>
+            <input type="text" id="pais" name="pais" placeholder="País" required>
+            <input type="text" id="ciudad" name="ciudad" placeholder="Ciudad" required>
+            <select id="tipoSolicitud" name="tipoSolicitud" required>
+                <option value="" disabled selected>Tipo de Solicitud</option>
+                <option value="Diseño Gráfico">Diseño Gráfico</option>
+                <option value="Desarrollo Web">Desarrollo Web</option>
+                <option value="Publicidad">Publicidad en Radio</option>
+                <option value="Publicidad">Sugerencia</option>
+            </select>
+            <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje aquí..." required></textarea>
+            <div>
+                <button type="submit">Enviar</button>
+                <button type="reset">Borrar</button>
+            </div>
+        </form>
+         <a href="index.html"><button class="btn-volver-form">Volver al Menu</button></a>
+    </div>
+</div>
+
+
+<script src="js/form.js"></script>
+
+<script src="js/noclick.js"></script>  
+
+</body>
+</html>
